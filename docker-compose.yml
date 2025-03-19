@@ -1,7 +1,6 @@
 services:
   app:
-    build:
-      context: ./dungeon-revealer
+    image: ghcr.io/sd2-2024-group-25/dungeon-revealer-app:latest
     environment:
       - NODE_ENV=production
       - WATCH_MODE=true # Enable file watching inside Docker
@@ -14,10 +13,7 @@ services:
       - excalidraw-network  # Add this to join the network
 
   excalidraw:
-    build:
-      context: ./excalidraw
-      args:
-        - NODE_ENV=development
+    image: ghcr.io/sd2-2024-group-25/excalidraw:latest
     container_name: excalidraw
     ports:
       - "5000:80"
@@ -34,8 +30,7 @@ services:
       - notused:/opt/node_app/app/node_modules
 
   excalidraw-room:
-    build:
-      context: ./excalidraw-room
+    image: ghcr.io/sd2-2024-group-25/excalidraw-room:latest
     ports:
       - "3002:3002"
     networks:
@@ -46,8 +41,7 @@ services:
       - NODE_ENV=production
 
   excalidraw-storage-backend:
-    build:
-      context: ./excalidraw-storage-backend
+    image: ghcr.io/sd2-2024-group-25/excalidraw-storage-backend:latest
     ports:
       - "8080:8080"
     networks:
@@ -58,6 +52,7 @@ services:
       - dungeon_revealer_data:/usr/src/dungeon-revealer/public/research/whiteboard  # Shared volume
     environment:
       - NODE_ENV=production
+
 volumes:
   notused:
   uploads:
